@@ -1,0 +1,49 @@
+x(n) = [x_{0}, x_{1}, ..., x_{N-1}] \textit{ which means x(n) is sampled using N points}
+
+\textit{ith sample corresponds to (i/N)th second in time domine}
+
+\textit{Any periodic wave can be expressed as sum of various sine waves}
+
+x(n) = a_{0} + \sum_{i=0}^{M-1}A_{i}*sin(2*\pi * f_{i}*n/N + \phi_{i}) \newline
+
+\textit{Discriet Fourier Transform is defined as}
+
+X(k) = \sum_{n=0}^{N-1} x(n)*exp(-2j*\pi*k*n/N) \newline
+
+\textit{Lets Try to simplify it}
+
+X(k) = \sum_{n=0}^{N-1}a_{0}*e^{-2j*\pi*k*n/N} + \sum_{n=0}^{N-1}\sum_{i=0}^{M-1}A_{i}*sin(2*\pi * f_{i}*n/N + \phi_{i})*e^{-2j*\pi*k*n/N} \newline
+
+\sum_{n=0}^{N-1}a_{0}*e^{-2j*\pi*k*n/N} = 0 \newline
+
+X(k) =  \sum_{n=0}^{N-1}\sum_{i=0}^{M-1}A_{i} *\frac{[e^{2j*\pi * f_{i}*n/N  + \phi_{i}} - e^{-2j*\pi * f_{i}*n/N  - \phi_{i}}]}{2j}*e^{-2j*\pi*k*n/N} \newline
+
+
+X(k) = \sum_{n=0}^{N-1}\sum_{i=0}^{M-1}A_{i}*\frac{[e^{2j*\pi * (f_{i} - k) *n/N  + \phi_{i}} - e^{-2j*\pi * (f_{i} + k)*n/N  - \phi_{i}}]}{2j} \newline
+
+\sum_{i=0}^{M-1}\sum_{j=0}^{N-1} f(i, j) = \sum_{j=0}^{N-1}\sum_{i=0}^{M-1} f(i, j) \textit{ Well Proven statement}
+
+X(k) = \sum_{i=0}^{M-1}\sum_{n=0}^{N-1}A_{i}*\frac{[e^{2j*\pi * (f_{i} - k) *n/N  + \phi_{i}} - e^{-2j*\pi * (f_{i} + k)*n/N  - \phi_{i}}]}{2j} \newline
+
+X(k) = \sum_{i=0}^{M-1}\sum_{n=0}^{N-1}A_{i}*\frac{[e^{j\phi_{i}}*e^{2j*\pi*(f_{i}-k)*n/N} - e^{-j\phi_{i}}*e^{-2j*\pi*(f_{i}+k)*n/N}]}{2j} \newline
+
+X(k) = \sum_{i=0}^{M-1}\frac{A_{i}*e^{j\phi_{i}}}{2j}\sum_{n=0}^{N-1}e^{2j*\pi*(f_{i}-k)*n/N} - \sum_{i=0}^{M-1}\frac{A_{i}*e^{-j\phi_{i}}}{2j}\sum_{n=0}^{N-1}e^{-2j*\pi*(f_{i}+k)*n/N}
+
+\sum_{n=0}^{N-1}e^{2j*\pi*(f_{i}-k)*n/N}  [ \textit{ This is in Geometric Progression} ]
+
+X(k) = \sum_{i=0}^{M-1}\frac{A_{i}*e^{j\phi_{i}}}{2j}*\frac{e^{2j*\pi*(f_{i}-k)} - 1}{e^{2j\pi*(f_{i}-k)/N} - 1} -  \sum_{i=0}^{M-1}\frac{A_{i}*e^{-j\phi_{i}}}{2j}*\frac{e^{-2j*\pi*(f_{i}+k)} - 1}{e^{-2j*\pi*(f_{i}+k)/N} - 1}
+
+e^{2j*pi*z} = 1 \space \forall z \epsilon \mathbb{Z}
+
+\frac{e^{2j*\pi*(f_{i}-k)} - 1}{e^{2j\pi*(f_{i}-k)/N} - 1} == 0 \hspace{1cm} \forall \space k != f_{i} \hspace{1cm} \frac{e^{-2j*\pi*(f_{i}+k)} - 1}{e^{-2j*\pi*(f_{i}+k)/N} - 1} == 0 \hspace{1cm} \forall \space k + f_{i} != N
+
+\frac{e^{2j*\pi*(f_{i}-k)} - 1}{e^{2j\pi*(f_{i}-k)/N} - 1} == N \hspace{1cm} \forall \space k == f_{i} \hspace{1cm} \frac{e^{-2j*\pi*(f_{i}+k)} - 1}{e^{-2j*\pi*(f_{i}+k)/N} - 1} == N \hspace{1cm} \forall \space k + f_{i} == N
+
+X(f_{i}) = \frac{NA_{i}*e^{j\phi_{i}}}{2j} 
+
+X(N-f_{i}) = \frac{-NA_{i}*e^{-j\phi_{i}}}{2j}
+
+\textit{so this concludes that the spikes in DFT corresponds to frequecy and length of the spike corresponds to amplitude of a sine wave that might be used to reconstruct the signal}
+
+
+

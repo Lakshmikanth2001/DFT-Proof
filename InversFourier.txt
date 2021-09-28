@@ -1,0 +1,40 @@
+\textit{if f0, f1, f2, ..., fm are the frequencies of Sine wave which are used to reconstruct the signal} \newline
+
+x(n) = \sum_{i=0}^{i=M-1}A_{i}*sin(2*\pi*f_{i}*n/N * \phi_{i})
+
+\textit{Using DFT we have proved that }
+
+X(f_{i}) = \frac{NA_{i}*e^{j\phi_{i}}}{2j} \textit{ & } X(N-f_{i}) = \frac{NA_{i}*e^{-j\phi{i}}}{2j}
+
+\textit{We want to reconstruct x(n) to do so multiply } X(f_{i}) \textit{ by }  e^{2j\pi*fi*n/N}
+
+X(f_{i})*e^{2j\pi*fi*n/N} = \frac{NA_{i}*e^{2j\pi*fi*n/N + j\phi_{i}}}{2j}
+
+X(N - f_{i})*e^{2j\pi*(N - f_{i})*n/N} = \frac{NA_{i}*e^{2j\pi*(N - fi)*n/N - j\phi_{i}}}{2j}
+
+=> \frac{NA_{i}*e^{-j\phi_{i}}*[e^{2j\pi*N*n/N} * e^{-2j\pi*fi*n/N}]}{2j}
+
+=> \frac{NA_{i}*e^{-j\phi_{i}}*[e^{2j\pi*n} * e^{-2j\pi*fi*n/N}]}{2j}
+
+e^{2j*\pi*n} == 1 \forall n \epsilon \mathbb{Z}
+
+=> \frac{NA_{i}*e^{-j\phi_{i}}*[e^{-2j\pi*fi*n/N}]}{2j}
+
+\textit{lets Add } X(f_{i})*e^{2j\pi*fi*n/N} \textit{ and } X(N - f_{i})*e^{2j\pi*(N - f_{i})*n/N} 
+
+=> X(f_{i})*e^{2j\pi*fi*n/N} + X(N - f_{i})*e^{2j\pi*(N - f_{i})*n/N} = NA_{i} * \frac{e^{2j*\pi*n*f_{i}/N + j\phi_{i} } - e^{-2j*\pi*f_{i}*n/N - j*\phi_{i}}}{2j}
+
+\textit{let x = }2*\pi*f_{i}*n/N + \phi_{i}
+
+=> X(f_{i})*e^{2j\pi*fi*n/N} + X(N - f_{i})*e^{2j\pi*(N - f_{i})*n/N} = NA_{i} * \frac{e^{jx} - e^{-jx}}{2j}
+
+\frac{e^{j\theta} - e^{-j\theta}}{2j} = sin(\theta)
+
+=> X(f_{i})*e^{2j\pi*fi*n/N} + X(N - f_{i})*e^{2j\pi*(N - f_{i})*n/N} = NA_{i}*sin(x)
+
+=> X(f_{i})*e^{2j\pi*fi*n/N} + X(N - f_{i})*e^{2j\pi*(N - f_{i})*n/N} = NA_{i}*sin(2*\pi*n*f_{i}/N + \phi_{i})
+
+\textit{so inverse discret fourier transform can be expressed as }
+
+x(n) = \frac{1}{N}*\sum_{k=0}^{N-1}X(k)*e^{2j*\pi*k*n/N}
+
